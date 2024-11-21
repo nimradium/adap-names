@@ -2,17 +2,14 @@ import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
 
-export class StringArrayName extends AbstractName {
+export class StringName extends AbstractName {
 
-    protected components: string[] = [];
+    protected name: string = "";
+    protected noComponents: number = 0;
 
-    constructor(other: string[], delimiter?: string) {
-        if(delimiter != undefined){
-            super(delimiter);
-        }else{
-            super();
-        }
-        this.components = other;
+    constructor(other: string, delimiter?: string) {
+        super();
+        throw new Error("needs implementation");
     }
 
     public clone(): Name {
@@ -48,26 +45,31 @@ export class StringArrayName extends AbstractName {
     }
 
     public getNoComponents(): number {
-        return this.components.length;
+        throw new Error("needs implementation");
     }
 
     public getComponent(i: number): string {
-        return this.components[i];
+        throw new Error("needs implementation");
     }
 
     public setComponent(i: number, c: string) {
-        this.components[i] = c;
+        throw new Error("needs implementation");
     }
 
     public insert(i: number, c: string) {
-        this.components.splice(i, 0, c);
+        throw new Error("needs implementation");
     }
 
     public append(c: string) {
-        this.components.push(c);
+        throw new Error("needs implementation");
     }
-    
+
     public remove(i: number) {
-        this.components.splice(i, 1);
+        throw new Error("needs implementation");
     }
+
+    public concat(other: Name): void {
+        throw new Error("needs implementation");
+    }
+
 }

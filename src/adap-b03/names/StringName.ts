@@ -1,10 +1,11 @@
-import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
+import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
+import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
 
 export class StringName extends AbstractName {
 
     protected name: string = "";
-    protected length: number = 0;
+    protected noComponents: number = 0;
 
     constructor(other: string, delimiter?: string) {
         if(delimiter != undefined){
@@ -14,49 +15,81 @@ export class StringName extends AbstractName {
         }
         this.name = other;
 
-        this.length = 1; // laut Forum: leerer String => eine Komponente https://www.studon.fau.de/studon/ilias.php?ref_id=4447999&cmdClass=ilobjforumgui&thr_pk=385940&page=0&cmd=viewThread&cmdNode=13z:tp&baseClass=ilRepositoryGUI
+        this.noComponents = 1; // laut Forum: leerer String => eine Komponente https://www.studon.fau.de/studon/ilias.php?ref_id=4447999&cmdClass=ilobjforumgui&thr_pk=385940&page=0&cmd=viewThread&cmdNode=13z:tp&baseClass=ilRepositoryGUI
         for(let i = 0; i < this.name.length; i++){
             if(this.name.charAt(i) === this.delimiter){
                 if(i-1 < 0 || this.name.charAt(i-1) !== ESCAPE_CHARACTER){
-                    this.length++;
+                    this.noComponents++;
                 }
             }
         }
     }
 
-    getNoComponents(): number {
-        return this.length;
+    public clone(): Name {
+        throw new Error("needs implementation");
     }
 
-    getComponent(i: number): string {
+    public asString(delimiter: string = this.delimiter): string {
+        throw new Error("needs implementation");
+    }
+
+    public toString(): string {
+        throw new Error("needs implementation");
+    }
+
+    public asDataString(): string {
+        throw new Error("needs implementation");
+    }
+
+    public isEqual(other: Name): boolean {
+        throw new Error("needs implementation");
+    }
+
+    public getHashCode(): number {
+        throw new Error("needs implementation");
+    }
+
+    public isEmpty(): boolean {
+        throw new Error("needs implementation");
+    }
+
+    public getDelimiterCharacter(): string {
+        throw new Error("needs implementation");
+    }
+
+    public getNoComponents(): number {
+        return this.noComponents;
+    }
+
+    public getComponent(i: number): string {
         let [i_start, i_end] = this.getIndices(i);
         return this.name.substring(i_start, i_end);
     }
 
-    setComponent(i: number, c: string) {
+    public setComponent(i: number, c: string) {
         let [i_start, i_end] = this.getIndices(i);
         this.name = this.name.substring(0, i_start) + c + this.name.substring(i_end);
     }
 
-    insert(i: number, c: string) {
-        if(i === this.length){
+    public insert(i: number, c: string) {
+        if(i === this.noComponents){
             return this.append(c);
         }
         let i_start = this.getStartIndex(i);
         this.name = this.name.substring(0, i_start) + c + this.delimiter + this.name.substring(i_start);
-        this.length++;
+        this.noComponents++;
     }
-    
-    append(c: string) {
+
+    public append(c: string) {
         // da leerer String bereits eine Komponente besitzt kein check auf isEmpty
         this.name = this.name.concat(this.delimiter, c);
-        this.length++;
+        this.noComponents++;
     }
-    
-    remove(i: number) {
+
+    public remove(i: number) {
         let [i_start, i_end] = this.getIndices(i);
         this.name = this.name.substring(0, i_start) + this.name.substring(i_end+1);
-        this.length--;
+        this.noComponents--;
     }
 
     /**

@@ -1,20 +1,20 @@
-import { Name, DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "./Name";
+import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
+import { Name } from "./Name";
 
 export class StringName implements Name {
 
     protected delimiter: string = DEFAULT_DELIMITER;
-
     protected name: string = "";
-    protected length: number = 0;
+    protected noComponents: number = 0;
 
     constructor(other: string, delimiter?: string) {
         this.name = other;
         if(delimiter != undefined) this.delimiter = delimiter;
 
-        this.length = 1; // laut Forum: leerer String => eine Komponente https://www.studon.fau.de/studon/ilias.php?ref_id=4447999&cmdClass=ilobjforumgui&thr_pk=385940&page=0&cmd=viewThread&cmdNode=13z:tp&baseClass=ilRepositoryGUI
+        this.noComponents = 1; // laut Forum: leerer String => eine Komponente https://www.studon.fau.de/studon/ilias.php?ref_id=4447999&cmdClass=ilobjforumgui&thr_pk=385940&page=0&cmd=viewThread&cmdNode=13z:tp&baseClass=ilRepositoryGUI
         for(let i = 0; i < this.name.length; i++){
             if(this.name.charAt(i) === this.delimiter && this.name.charAt(i-1) !== ESCAPE_CHARACTER){
-                this.length++;
+                this.noComponents++;
             }
         }
     }
@@ -29,16 +29,16 @@ export class StringName implements Name {
         return out;
     }
 
-    public isEmpty(): boolean {
-        return this.name.length === 0;
-    }
-
     public getDelimiterCharacter(): string {
         return this.delimiter;
     }
 
+    public isEmpty(): boolean {
+        return this.name.length === 0;
+    }
+
     public getNoComponents(): number {
-        return this.length;
+        return this.noComponents;
     }
 
     public getComponent(x: number): string {
@@ -108,13 +108,13 @@ export class StringName implements Name {
             }
         }
         this.name = this.name.substring(0, i_start) + c + this.delimiter + this.name.substring(i_start);
-        this.length++;
+        this.noComponents++;
     }
 
     public append(c: string): void {
         // da leerer String bereits eine Komponente besitzt kein check auf isEmpty
         this.name = this.name.concat(this.delimiter, c);
-        this.length++;
+        this.noComponents++;
     }
 
     public remove(n: number): void {
@@ -138,7 +138,7 @@ export class StringName implements Name {
             }
         }
         this.name = this.name.substring(0, i_start) + this.name.substring(i_end+1);
-        this.length--;
+        this.noComponents--;
     }
 
     public concat(other: Name): void {
