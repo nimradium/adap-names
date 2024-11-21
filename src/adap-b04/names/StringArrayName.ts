@@ -7,67 +7,71 @@ export class StringArrayName extends AbstractName {
     protected components: string[] = [];
 
     constructor(other: string[], delimiter?: string) {
-        super();
-        throw new Error("needs implementation");
+        if(delimiter != undefined){
+            super(delimiter);
+        }else{
+            super();
+        }
+        this.components = other;
     }
 
     public clone(): Name {
-        throw new Error("needs implementation");
+        return new StringArrayName(this.components, this.delimiter);
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
+        return super.asString(delimiter);
     }
 
     public toString(): string {
-        throw new Error("needs implementation");
+        return super.toString();
     }
 
     public asDataString(): string {
-        throw new Error("needs implementation");
+        return super.asDataString();
     }
 
     public isEqual(other: Name): boolean {
-        throw new Error("needs implementation");
+        return super.isEqual(other);
     }
 
     public getHashCode(): number {
-        throw new Error("needs implementation");
+        return super.getHashCode();
     }
 
     public isEmpty(): boolean {
-        throw new Error("needs implementation");
+        return super.isEmpty();
     }
 
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        return super.getDelimiterCharacter();
     }
 
     public getNoComponents(): number {
-        throw new Error("needs implementation");
+        return this.components.length;
     }
 
     public getComponent(i: number): string {
-        throw new Error("needs implementation");
+        return this.components[i];
     }
 
     public setComponent(i: number, c: string) {
-        throw new Error("needs implementation");
+        this.components[i] = c;
     }
 
     public insert(i: number, c: string) {
-        throw new Error("needs implementation");
+        this.components.splice(i, 0, c);
     }
 
     public append(c: string) {
-        throw new Error("needs implementation");
+        this.components.push(c);
     }
 
     public remove(i: number) {
-        throw new Error("needs implementation");
+        this.components.splice(i, 1);
     }
 
     public concat(other: Name): void {
-        throw new Error("needs implementation");
+        return super.concat(other);
     }
 }
