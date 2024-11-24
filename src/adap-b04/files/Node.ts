@@ -1,3 +1,4 @@
+import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { Name } from "../names/Name";
 import { Directory } from "./Directory";
 
@@ -7,11 +8,18 @@ export class Node {
     protected parentNode: Directory;
 
     constructor(bn: string, pn: Directory) {
+        // preconditions
+        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
+        IllegalArgumentException.assertIsNotNullOrUndefined(pn);
+        
         this.doSetBaseName(bn);
         this.parentNode = pn;
     }
 
     public move(to: Directory): void {
+        // preconditions
+        IllegalArgumentException.assertIsNotNullOrUndefined(to);
+
         this.parentNode.remove(this);
         to.add(this);
     }
@@ -31,6 +39,9 @@ export class Node {
     }
 
     public rename(bn: string): void {
+        // preconditions
+        IllegalArgumentException.assertIsNotNullOrUndefined(bn);
+
         this.doSetBaseName(bn);
     }
 
