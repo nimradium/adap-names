@@ -26,35 +26,31 @@ export class StringName extends AbstractName {
     }
 
     public clone(): Name {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public asString(delimiter: string = this.delimiter): string {
-        throw new Error("needs implementation");
-    }
-
-    public toString(): string {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public asDataString(): string {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public isEqual(other: Name): boolean {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public getHashCode(): number {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public isEmpty(): boolean {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public getDelimiterCharacter(): string {
-        throw new Error("needs implementation");
+        throw new Error("needs implementation or deletion");
     }
 
     public getNoComponents(): number {

@@ -3,7 +3,7 @@ import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { InvalidStateException } from "../common/InvalidStateException";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 
 export class StringName extends AbstractName {
 
@@ -95,7 +95,7 @@ export class StringName extends AbstractName {
         // postconditions
         if(this.name.length !== (oldLength - oldComponentLength) + c.length){
             this.name = oldName;
-            throw new MethodFailureException("failed to set component");
+            throw new MethodFailedException("failed to set component");
         }
         this.assertClassInvariants();
     }
@@ -120,7 +120,7 @@ export class StringName extends AbstractName {
         if(this.name.length !== (oldLength + c.length + 1)){
             this.name = oldName;
             this.noComponents--;
-            throw new MethodFailureException("failed to insert component");
+            throw new MethodFailedException("failed to insert component");
         }
         this.assertClassInvariants();
     }
@@ -141,7 +141,7 @@ export class StringName extends AbstractName {
         if(this.name.length !== (oldLength + c.length + 1)){
             this.name = oldName;
             this.noComponents--;
-            throw new MethodFailureException("failed to append component");
+            throw new MethodFailedException("failed to append component");
         }
         this.assertClassInvariants();
     }
@@ -168,7 +168,7 @@ export class StringName extends AbstractName {
         if(this.name.length !== (oldLength - (oldComponent.length+1))){
             this.name = oldName;
             this.noComponents++;
-            throw new MethodFailureException("failed to remove component");
+            throw new MethodFailedException("failed to remove component");
         }
         this.assertClassInvariants();
     }
@@ -182,7 +182,7 @@ export class StringName extends AbstractName {
         if(this.noComponents !== (oldNoComponents + other.getNoComponents())){
             this.name = oldName;
             this.noComponents = oldNoComponents;
-            throw new MethodFailureException("failed to concat names");
+            throw new MethodFailedException("failed to concat names");
         }
         this.assertClassInvariants();
     }

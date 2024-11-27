@@ -1,18 +1,12 @@
 import { DEFAULT_DELIMITER, ESCAPE_CHARACTER } from "../common/Printable";
 import { Name } from "./Name";
-import { AbstractName } from "./AbstractName";
 
-export class StringArrayName extends AbstractName {
+export abstract class AbstractName implements Name {
 
-    protected components: string[] = [];
+    protected delimiter: string = DEFAULT_DELIMITER;
 
-    constructor(other: string[], delimiter?: string) {
-        if(delimiter != undefined){
-            super(delimiter);
-        }else{
-            super();
-        }
-        this.components = other;
+    constructor(delimiter: string = DEFAULT_DELIMITER) {
+        throw new Error("needs implementation or deletion");
     }
 
     public clone(): Name {
@@ -21,6 +15,10 @@ export class StringArrayName extends AbstractName {
 
     public asString(delimiter: string = this.delimiter): string {
         throw new Error("needs implementation or deletion");
+    }
+
+    public toString(): string {
+        return this.asDataString();
     }
 
     public asDataString(): string {
@@ -43,27 +41,17 @@ export class StringArrayName extends AbstractName {
         throw new Error("needs implementation or deletion");
     }
 
-    public getNoComponents(): number {
-        return this.components.length;
+    abstract getNoComponents(): number;
+
+    abstract getComponent(i: number): string;
+    abstract setComponent(i: number, c: string): void;
+
+    abstract insert(i: number, c: string): void;
+    abstract append(c: string): void;
+    abstract remove(i: number): void;
+
+    public concat(other: Name): void {
+        throw new Error("needs implementation or deletion");
     }
 
-    public getComponent(i: number): string {
-        return this.components[i];
-    }
-
-    public setComponent(i: number, c: string) {
-        this.components[i] = c;
-    }
-
-    public insert(i: number, c: string) {
-        this.components.splice(i, 0, c);
-    }
-
-    public append(c: string) {
-        this.components.push(c);
-    }
-    
-    public remove(i: number) {
-        this.components.splice(i, 1);
-    }
 }

@@ -7,12 +7,8 @@ export class StringArrayName extends AbstractName {
     protected components: string[] = [];
 
     constructor(other: string[], delimiter?: string) {
-        if(delimiter != undefined){
-            super(delimiter);
-        }else{
-            super();
-        }
-        this.components = other;
+        super();
+        throw new Error("needs implementation or deletion");
     }
 
     public clone(): Name {
@@ -44,26 +40,30 @@ export class StringArrayName extends AbstractName {
     }
 
     public getNoComponents(): number {
-        return this.components.length;
+        throw new Error("needs implementation or deletion");
     }
 
     public getComponent(i: number): string {
-        return this.components[i];
+        throw new Error("needs implementation or deletion");
     }
 
     public setComponent(i: number, c: string) {
-        this.components[i] = c;
+        throw new Error("needs implementation or deletion");
     }
 
     public insert(i: number, c: string) {
-        this.components.splice(i, 0, c);
+        throw new Error("needs implementation or deletion");
     }
 
     public append(c: string) {
-        this.components.push(c);
+        throw new Error("needs implementation or deletion");
     }
-    
+
     public remove(i: number) {
-        this.components.splice(i, 1);
+        throw new Error("needs implementation or deletion");
+    }
+
+    public concat(other: Name): void {
+        throw new Error("needs implementation or deletion");
     }
 }

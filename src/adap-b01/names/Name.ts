@@ -35,6 +35,15 @@ export class Name {
         return this.components.map((c) => c.replace(re, ESCAPE_CHARACTER + delimiter)).join(delimiter);
     }
 
+    /** 
+     * Returns a machine-readable representation of Name instance using default control characters
+     * Machine-readable means that from a data string, a Name can be parsed back in
+     * The control characters in the data string are the default characters
+     */
+    public asDataString(): string {
+        throw new Error("needs implementation or deletion");
+    }
+
     // @methodtype get-method
     public getComponent(i: number): string {
         return this.components[i];

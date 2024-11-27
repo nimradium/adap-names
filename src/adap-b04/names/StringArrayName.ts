@@ -3,7 +3,7 @@ import { Name } from "./Name";
 import { AbstractName } from "./AbstractName";
 import { InvalidStateException } from "../common/InvalidStateException";
 import { IllegalArgumentException } from "../common/IllegalArgumentException";
-import { MethodFailureException } from "../common/MethodFailureException";
+import { MethodFailedException } from "../common/MethodFailedException";
 
 export class StringArrayName extends AbstractName {
 
@@ -92,7 +92,7 @@ export class StringArrayName extends AbstractName {
         // postconditions
         if(this.components.length !== oldComponents.length + 1){
             this.components = oldComponents;
-            throw new MethodFailureException("failed to insert component");
+            throw new MethodFailedException("failed to insert component");
         }
         this.assertClassInvariants();
     }
@@ -108,7 +108,7 @@ export class StringArrayName extends AbstractName {
         //postconditions
         if(this.components.length !== oldComponents.length + 1){
             this.components = oldComponents;
-            throw new MethodFailureException("failed to append component");
+            throw new MethodFailedException("failed to append component");
         }
         this.assertClassInvariants();
     }
@@ -125,7 +125,7 @@ export class StringArrayName extends AbstractName {
         // postconditions
         if(this.components.length !== oldComponents.length - 1){
             this.components = oldComponents;
-            throw new MethodFailureException("failed to remove component");
+            throw new MethodFailedException("failed to remove component");
         }
         this.assertClassInvariants();
     }
@@ -137,7 +137,7 @@ export class StringArrayName extends AbstractName {
         // postconditions
         if(this.components.length !== (oldComponents.length + other.getNoComponents())){
             this.components = oldComponents;
-            throw new MethodFailureException("failed to concat names");
+            throw new MethodFailedException("failed to concat names");
         }
         this.assertClassInvariants();
     }

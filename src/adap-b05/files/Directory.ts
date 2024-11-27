@@ -1,4 +1,3 @@
-import { IllegalArgumentException } from "../common/IllegalArgumentException";
 import { Node } from "./Node";
 
 export class Directory extends Node {
@@ -10,15 +9,10 @@ export class Directory extends Node {
     }
 
     public add(cn: Node): void {
-        // preconditions
-        IllegalArgumentException.assertIsNotNullOrUndefined(cn);
-
         this.childNodes.add(cn);
     }
 
     public remove(cn: Node): void {
-        IllegalArgumentException.assertIsNotNullOrUndefined(cn);
-        
         this.childNodes.delete(cn); // Yikes! Should have been called remove
     }
 
