@@ -1,6 +1,7 @@
 import { Node } from "./Node";
 import { Directory } from "./Directory";
 import { MethodFailedException } from "../common/MethodFailedException";
+import { ExceptionType, AssertionDispatcher } from "../common/AssertionDispatcher";
 
 enum FileState {
     OPEN,
@@ -17,10 +18,15 @@ export class File extends Node {
     }
 
     public open(): void {
+        this.assertIsInState(FileState.CLOSED, ExceptionType.PRECONDITION);
+        this.state = FileState.OPEN;
+        this.assertIsInState(FileState.OPEN, ExceptionType.POSTCONDITION);
         // do something
     }
 
     public read(noBytes: number): Int8Array {
+        this.assertIsInState(FileState.OPEN, ExceptionType.PRECONDITION);
+
         let result: Int8Array = new Int8Array(noBytes);
         // do something
 
@@ -44,6 +50,9 @@ export class File extends Node {
     }
 
     public close(): void {
+        this.assertIsInState(FileState.OPEN, ExceptionType.PRECONDITION);
+        this.state = FileState.CLOSED;
+        this.assertIsInState(FileState.CLOSED, ExceptionType.POSTCONDITION);
         // do something
     }
 
@@ -51,4 +60,8 @@ export class File extends Node {
         return this.state;
     }
 
+    protected assertIsInState(state: FileState, et: ExceptionType): void {
+        const condition: boolean = (state != this.doGetFileState());
+        AssertionDispatcher.dispatch(et, condition, "invalid base name");
+    }
 }
